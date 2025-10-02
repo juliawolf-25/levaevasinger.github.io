@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levaeva - певица, автор песен, блоггер</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8a2be2;
+            --secondary-color: #ff69b4;
+            --accent-color: #00ced1;
+            --dark-color: #1a1a2e;
+            --light-color: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Times New Roman', serif;
+            font-size: 18px;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: var(--light-color);
+            background-attachment: fixed;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        .brand-font {
+            font-family: 'Cinzel', serif;
+        }
+        
+        .navbar {
+            background-color: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            padding: 15px 0;
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .navbar-brand {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--secondary-color) !important;
+        }
+        
+        .nav-link {
+            color: var(--light-color) !important;
+            font-weight: 500;
+            transition: color 0.3s;
+            margin: 0 5px;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(26, 26, 46, 0.8), rgba(26, 26, 46, 0.9)), 
+                        linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+        
+        .card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: var(--light-color);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+        
+        .album-cover {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+        
+        footer {
+            background-color: rgba(15, 20, 35, 0.95);
+            padding: 40px 0 20px;
+        }
+        
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--light-color);
+        }
+        
+        .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: var(--secondary-color);
+            color: var(--light-color);
+            box-shadow: 0 0 0 0.25rem rgba(255, 105, 180, 0.25);
+        }
+        
+        .table {
+            color: var(--light-color);
+        }
+        
+        .table-striped>tbody>tr:nth-of-type(odd)>* {
+            --bs-table-accent-bg: rgba(255, 255, 255, 0.05);
+            color: var(--light-color);
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            border: 4px solid var(--primary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::after {
+            right: -10px;
+        }
+        
+        .right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stats-counter {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .stats-counter .number {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stats-counter .label {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        
+        .concert-photo {
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .sidebar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .new-badge {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .placeholder-img {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+            
+            .hero-section {
+                height: 70vh;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .right {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand brand-font" href="#"><i class="fas fa-music me-2"></i>Levaeva</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#home">Главная</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">Обо мне</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#music">Музыка</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#videos">Видео</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#gallery">Галерея</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Контакты</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="container hero-content">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h1 class="display-3 fw-bold mb-4 brand-font">Levaeva</h1>
+                        <p class="lead mb-4">Российская певица, блоггер, автор песен, интернет-стример</p>
+                        <p class="mb-4">В 2023 году выступала на премии «Золотой хит» от федерального канала MusicBoxGold. Автор хита: Levaeva, LXE - Прекрасна.</p>
+                        <p class="mb-4"><strong>Новый трек:</strong> "Недоступные" уже доступен на всех площадках!</p>
+                        <a href="#music" class="btn btn-primary btn-lg me-3"><i class="fas fa-headphones me-2"></i>Слушать музыку</a>
+                        <a href="#videos" class="btn btn-outline-light btn-lg"><i class="fas fa-play-circle me-2"></i>Смотреть видео</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="py-5">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stats-counter">
+                            <div class="number">500K+</div>
+                            <div class="label">Подписчиков</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stats-counter">
+                            <div class="number">80+</div>
+                            <div class="label">Песен</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stats-counter">
+                            <div class="number">25M+</div>
+                            <div class="label">Просмотров</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stats-counter">
+                            <div class="number">NEW</div>
+                            <div class="label">Трек "Недоступные"</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center mb-5">
+                        <h2 class="section-title">Обо мне</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h3 class="mb-4">Привет, я Levaeva!</h3>
+                        <p>Я российская певица, автор песен, блоггер и интернет-стример. Моё творчество сочетает в себе элементы поп-музыки, R&B и электроники, создавая уникальное звучание, которое находит отклик у слушателей.</p>
+                        <p>В 2023 году я имела честь выступить на премии «Золотой хит» от федерального канала MusicBoxGold, где представила свой хит "Прекрасна" в сотрудничестве с LXE.</p>
+                        <p>Моя музыка - это отражение моих мыслей, переживаний и эмоций. Каждая песня - это часть моей души, которой я делюсь с вами. Я верю, что музыка может объединять людей, вдохновлять и дарить радость.</p>
+                        <p>Помимо музыкальной деятельности, я веду блог и стримы, где делюсь с поклонниками своими мыслями, творческими процессами и повседневной жизнью.</p>
+                        
+                        <h4 class="mt-5 mb-3">Достижения</h4>
+                        <ul>
+                            <li>Участие в премии «Золотой хит» (2023)</li>
+                            <li>Хит "Прекрасна" (совместно с LXE)</li>
+                            <li>Новый трек "Недоступные"</li>
+                            <li>Более 80 выпущенных песен</li>
+                            <li>Регулярные стримы для поклонников</li>
+                            <li>Активное присутствие в социальных сетях</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <aside class="sidebar">
+                            <h4 class="mb-3">Быстрые ссылки</h4>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><a href="#music" class="text-light"><i class="fas fa-music me-2"></i>Моя музыка</a></li>
+                                <li class="mb-2"><a href="#videos" class="text-light"><i class="fas fa-video me-2"></i>Видеоклипы</a></li>
+                                <li class="mb-2"><a href="#gallery" class="text-light"><i class="fas fa-images me-2"></i>Фотогалерея</a></li>
+                                <li class="mb-2"><a href="#contact" class="text-light"><i class="fas fa-envelope me-2"></i>Сотрудничество</a></li>
+                            </ul>
+                            
+                            <h4 class="mt-4 mb-3">Подписка на новости</h4>
+                            <p>Будьте в курсе новых релизов и мероприятий</p>
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control" placeholder="Ваш email">
+                                <button class="btn btn-primary" type="button" onclick="subscribeNewsletter()">Подписаться</button>
+                            </div>
+                            
+                            <h4 class="mt-4 mb-3">Социальные сети</h4>
+                            <div class="social-icons">
+                                <a href="https://youtube.com/@levaeva?si=-2uXb7YxZ5Jv5MTs" target="_blank"><i class="fab fa-youtube"></i></a>
+                                <a href="https://music.yandex.ru/artist/7272110?utm_source=web&utm_medium=copy_link" target="_blank"><i class="fab fa-yandex"></i></a>
+                                <a href="https://vk.com/levaeva_music" target="_blank"><i class="fab fa-vk"></i></a>
+                                <a href="https://t.me/levaeva_music" target="_blank"><i class="fab fa-telegram"></i></a>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Music Section -->
+        <section id="music" class="py-5 bg-dark">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center mb-5">
+                        <h2 class="section-title">Моя музыка</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/9ww0buiJyfA" title="Levaeva - Прекрасна" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h3 class="mb-4">Хит "Прекрасна" (совместно с LXE)</h3>
+                        <p>Этот трек стал настоящим прорывом в моей карьере и был представлен на премии «Золотой хит» в 2023 году. Песня рассказывает о внутренней красоте и силе, которая есть в каждой женщине.</p>
+                        <p>Совместная работа с LXE подарила треку уникальное звучание, сочетающее в себе элементы поп-музыки и современного R&B.</p>
+                        <div class="mt-4">
+                            <a href="https://music.yandex.ru/artist/7272110?utm_source=web&utm_medium=copy_link" class="btn btn-primary me-3" target="_blank"><i class="fab fa-yandex me-2"></i>Яндекс.Музыка</a>
+                            <a href="https://youtube.com/@levaeva?si=-2uXb7YxZ5Jv5MTs" class="btn btn-outline-light" target="_blank"><i class="fab fa-youtube me-2"></i>YouTube</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <h3 class="section-title mb-4">Новый трек "Недоступные" <span class="new-badge">НОВИНКА</span></h3>
+                    </div>
+                    <div class="col-lg-8 mx-auto">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h4>"Недоступные"</h4>
+                                <p class="mb-4">Новый сингл, который рассказывает о сложных отношениях и эмоциях, которые мы иногда испытываем к людям, которые кажутся нам недосягаемыми.</p>
+                                <div class="mb-4">
+                                    <a href="https://music.yandex.ru/artist/7272110?utm_source=web&utm_medium=copy_link" class="btn btn-primary me-3" target="_blank"><i class="fab fa-yandex me-2"></i>Слушать</a>
+                                    <a href="https://youtube.com/@levaeva?si=-2uXb7YxZ5Jv5MTs" class="btn btn-outline-light" target="_blank"><i class="fab fa-youtube me-2"></i>Смотреть</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <h3 class="section-title mb-4">Музыкальные подборки</h3>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Лучшие хиты</h5>
+                                <p class="card-text">Подборка самых популярных треков Levaeva</p>
+                                <a href="https://youtube.com/playlist?list=OLAK5uy_kmJLstxRMZ_50XCtsKp9-X47oPjT5nTZg&si=iMjSP8VJCZN-0wQv" class="btn btn-primary" target="_blank">Слушать</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Новые релизы</h5>
+                                <p class="card-text">Самые свежие треки и музыкальные новинки</p>
+                                <a href="https://youtube.com/playlist?list=OLAK5uy_mGpRRsLOcIiP12x0GldYNLl9qQusDN_yA&si=NKIgA1VpFS7k7dn4" class="btn btn-primary" target="_blank">Слушать</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Акустические версии</h5>
+                                <p class="card-text">Треки в акустическом исполнении</p>
+                                <a href="https://youtube.com/playlist?list=OLAK5uy_kFaN8TJLmsLmrPnbFowzb2h9pxDHj7iA8&si=E4gyuKY_XpHw9dZ-" class="btn btn-primary" target="_blank">Слушать</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Videos Section -->
+        <section id="videos" class="py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center mb-5">
+                        <h2 class="section-title">Видео</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/9ww0buiJyfA" title="Levaeva - Прекрасна" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p class="mt-2 text-center">Официальный клип "Прекрасна"</p>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/rQvsZRDjRJQ" title="Levaeva - Концертное выступление" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p class="mt-2 text-center">Концертное выступление</p>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h3 class="section-title mb-4">Музыкальные подборки на YouTube</h3>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Лучшие хиты</h5>
+                                <p class="card-text">Подборка самых популярных треков</p>
+                                <a href="https://youtube.com/playlist?list=OLAK5uy_kmJLstxRMZ_50XCtsKp9-X47oPjT5nTZg&si=iMjSP8VJCZN-0wQv" class="btn btn-primary" target="_blank">Смотреть</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Новые релизы</h5>
+                                <p class="card-text">Самые свежие треки и клипы</p>
+                                <a href="https://youtube.com/playlist?list=OLAK5uy_mGpRRsLOcIiP12x0GldYNLl9qQusDN_yA&si=NKIgA1VpFS7k7dn4" class="btn btn-primary" target="_blank">Смотреть</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Акустические версии</h5>
+                                <p class="card-text">Треки в акустическом исполнении</p>
+                                <a href="https://youtube.com/playlist?list=OLAK5uy_kFaN8TJLmsLmrPnbFowzb2h9pxDHj7iA8&si=E4gyuKY_XpHw9dZ-" class="btn btn-primary" target="_blank">Смотреть</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-5 bg-dark">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center mb-5">
+                        <h2 class="section-title">Галерея</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="concert-photo">
+                            <div class="placeholder-img">Концертное фото 1</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="concert-photo">
+                            <div class="placeholder-img">Концертное фото 2</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="concert-photo">
+                            <div class="placeholder-img">Концертное фото 3</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="concert-photo">
+                            <div class="placeholder-img">Студийное фото 1</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="concert-photo">
+                            <div class="placeholder-img">Студийное фото 2</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="concert-photo">
+                            <div class="placeholder-img">Live выступление</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center mb-5">
+                        <h2 class="section-title">Контакты</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <h3 class="mb-4">Свяжитесь со мной</h3>
+                        <form id="contactForm">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Ваше имя</label>
+                                <input type="text" class="form-control" id="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Сообщение</label>
+                                <textarea class="form-control" id="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                        </form>
+                    </div>
+                    <div class="col-lg-6">
+                        <h3 class="mb-4">Для сотрудничества</h3>
+                        <p><i class="fas fa-envelope me-2"></i> levaevamusik@mail.com</p>
+                        
+                        <h4 class="mt-4 mb-3">Социальные сети</h4>
+                        <div class="social-icons mb-4">
+                            <a href="https://youtube.com/@levaeva?si=-2uXb7YxZ5Jv5MTs" target="_blank"><i class="fab fa-youtube"></i></a>
+                            <a href="https://music.yandex.ru/artist/7272110?utm_source=web&utm_medium=copy_link" target="_blank"><i class="fab fa-yandex"></i></a>
+                            <a href="https://vk.com/levaeva_music" target="_blank"><i class="fab fa-vk"></i></a>
+                            <a href="https://t.me/levaeva_music" target="_blank"><i class="fab fa-telegram"></i></a>
+                        </div>
+                        
+                        <h4 class="mt-4 mb-3">Музыкальные платформы</h4>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="https://music.yandex.ru/artist/7272110?utm_source=web&utm_medium=copy_link" class="btn btn-outline-light btn-sm" target="_blank">Яндекс.Музыка</a>
+                            <a href="https://youtube.com/@levaeva?si=-2uXb7YxZ5Jv5MTs" class="btn btn-outline-light btn-sm" target="_blank">YouTube</a>
+                        </div>
+                        
+                        <div class="mt-4 p-3 rounded" style="background: rgba(255,255,255,0.1);">
+                            <h5><i class="fas fa-info-circle me-2"></i>Для организаторов мероприятий</h5>
+                            <p class="mb-0">По вопросам организации концертов, участия в фестивалях и других мероприятий обращайтесь по указанному email.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="brand-font">Levaeva</h5>
+                    <p>Российская певица, блоггер, автор песен, интернет-стример</p>
+                    <div class="social-icons">
+                        <a href="https://youtube.com/@levaeva?si=-2uXb7YxZ5Jv5MTs" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://music.yandex.ru/artist/7272110?utm_source=web&utm_medium=copy_link" target="_blank"><i class="fab fa-yandex"></i></a>
+                        <a href="https://vk.com/levaeva_music" target="_blank"><i class="fab fa-vk"></i></a>
+                        <a href="https://t.me/levaeva_music" target="_blank"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Быстрые ссылки</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#home" class="text-light">Главная</a></li>
+                        <li><a href="#about" class="text-light">Обо мне</a></li>
+                        <li><a href="#music" class="text-light">Музыка</a></li>
+                        <li><a href="#videos" class="text-light">Видео</a></li>
+                        <li><a href="#gallery" class="text-light">Галерея</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Контакты</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i> levaevamusik@mail.com</li>
+                    </ul>
+                    <p class="mt-3">© 2018-2025 Levaeva. Все права защищены.</p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Слушайте новый трек "Недоступные"!</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>Разработано с <i class="fas fa-heart text-danger"></i> для поклонников музыки</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Плавная прокрутка для навигации
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Изменение навбара при прокрутке
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if(window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Анимация появления элементов при скролле
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Применяем анимацию к карточкам и другим элементам
+        document.querySelectorAll('.card, .section-title, .stats-counter').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+        
+        // Обработка формы контактов
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            alert(`Спасибо, ${name}! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.`);
+            this.reset();
+        });
+        
+        // Функция подписки на новости
+        function subscribeNewsletter() {
+            const emailInput = document.querySelector('.input-group input[type="email"]');
+            if (emailInput.value) {
+                alert('Спасибо за подписку! Вы будете получать новости о новых релизах и мероприятиях.');
+                emailInput.value = '';
+            } else {
+                alert('Пожалуйста, введите ваш email.');
+            }
+        }
+    </script>
+</body>
+</html>
